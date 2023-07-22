@@ -52,16 +52,14 @@ public class Contact {
             return false;
         }
         String[] groups = phoneNumber.split("[ -]");
-        if (groups.length < 4) {
+
+        if (groups.length > 1 && groups[0].matches("^\\+?\\(.+\\)$") && groups[1].matches("^\\(.+\\)$")) {
             return false;
         }
-        if (groups[0].matches("^\\+?\\(.+\\)$") && groups[1].matches("^\\(.+\\)$")) {
+        if (!groups[0].matches("(?i)^\\+?((\\([a-z0-9]+\\))|([a-z0-9]+))$")) {
             return false;
         }
-        if (!groups[0].matches("(?i)^\\+?\\(?[a-z0-9]+\\)?$")) {
-            return false;
-        }
-        if (!groups[1].matches("(?i)^\\(?[a-z0-9]{2,}\\)?$")) {
+        if (groups.length > 1 && !groups[1].matches("(?i)^\\(?[a-z0-9]{2,}\\)?$")) {
             return false;
         }
         for (int i = 2; i < groups.length; i++) {
