@@ -10,10 +10,28 @@ public class Contact {
     public Contact(String name, String surname, String phone) {
         this.name = name;
         this.surname = surname;
-        this.phone = phone;
+        if (isValidPhoneNumber(phone)) {
+            this.phone = phone;
+        } else {
+            this.phone = "";
+        }
     }
 
-    public Contact() {}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public String getPhone() {
         return phone;
@@ -50,5 +68,9 @@ public class Contact {
             }
         }
         return true;
+    }
+
+    public boolean hasNumber() {
+        return phone != null && !phone.isBlank();
     }
 }
