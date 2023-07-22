@@ -13,6 +13,7 @@ public class Contact {
         if (isValidPhoneNumber(phone)) {
             this.phone = phone;
         } else {
+            System.out.println("Wrong number format!");
             this.phone = "";
         }
     }
@@ -42,6 +43,7 @@ public class Contact {
             this.phone = phone;
         } else {
             System.out.println("Wrong number format!");
+            this.phone = "";
         }
     }
 
@@ -72,5 +74,10 @@ public class Contact {
 
     public boolean hasNumber() {
         return phone != null && !phone.isBlank();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s, %s", name, surname, hasNumber() ? phone : "[no number]");
     }
 }
