@@ -256,11 +256,13 @@ public class ContactsApp {
     }
 
     private void saveToFile() {
-        Contact[] contactsArray = contacts.toArray(Contact[]::new);
-        try {
-            SerializationUtil.serialize(contactsArray, fileName);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        if (fileName != null) {
+            Contact[] contactsArray = contacts.toArray(Contact[]::new);
+            try {
+                SerializationUtil.serialize(contactsArray, fileName);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }
