@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ContactsApp {
     private static final Scanner scan = new Scanner(System.in);
-    private List<Person> contacts;
+    private final List<Person> contacts;
 
     public ContactsApp() {
         contacts = new ArrayList<>();
@@ -16,7 +16,7 @@ public class ContactsApp {
         String userAction;
 
         do {
-            System.out.print("Enter action (add, remove, edit, count, list, exit): ");
+            System.out.print("Enter action (add, remove, edit, count, info, exit): ");
             userAction = scan.nextLine();
 
             if ("exit".equals(userAction)) {
@@ -27,9 +27,22 @@ public class ContactsApp {
                 case "remove" -> removeContact();
                 case "edit" -> editContact();
                 case "count" -> countContacts();
-                case "list" -> listContacts();
+                case "info" -> getContactDetail();
             }
         } while (true);
+    }
+
+    private void getContactDetail() {
+        if (contacts.isEmpty()) {
+            System.out.println("No records created");
+        } else {
+            listContacts();
+
+            System.out.print("Enter index to show info: ");
+            int userIndex = Integer.parseInt(scan.nextLine());
+
+            System.out.println(contacts.get(userIndex - 1));
+        }
     }
 
     private void countContacts() {
@@ -74,7 +87,7 @@ public class ContactsApp {
 
     private void listContacts() {
         for (int i = 0; i < contacts.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, contacts.get(i));
+            System.out.printf("%d. %s\n", i + 1, contacts.get(i).getName());
         }
     }
 
