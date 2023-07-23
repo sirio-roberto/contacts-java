@@ -6,11 +6,7 @@ import java.util.Scanner;
 
 public class ContactsApp {
     private static final Scanner scan = new Scanner(System.in);
-    private List<Contact> contacts;
-
-    public ContactsApp(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
+    private List<Person> contacts;
 
     public ContactsApp() {
         contacts = new ArrayList<>();
@@ -47,7 +43,7 @@ public class ContactsApp {
             listContacts();
             System.out.print("Select a record: ");
             int userIndex = Integer.parseInt(scan.nextLine());
-            Contact contactToEdit = contacts.get(userIndex - 1);
+            Person contactToEdit = contacts.get(userIndex - 1);
 
             System.out.print("Select a field (name, surname, number): ");
             String chosenField = scan.nextLine();
@@ -87,10 +83,14 @@ public class ContactsApp {
         String name = scan.nextLine();
         System.out.print("Enter the surname: ");
         String surname = scan.nextLine();
+        System.out.print("Enter the birth date: ");
+        String birthDateStr = scan.nextLine();
+        System.out.print("Enter the gender (M, F): ");
+        String genderStr = scan.nextLine();
         System.out.print("Enter the number: ");
         String phone = scan.nextLine();
 
-        Contact contact = new Contact(name, surname, phone);
+        Person contact = new Person(name, phone, surname, birthDateStr, genderStr);
         contacts.add(contact);
 
         System.out.println("The record added.");

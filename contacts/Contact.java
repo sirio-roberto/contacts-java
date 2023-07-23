@@ -1,21 +1,18 @@
 package contacts;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
 
-public class Contact {
+abstract class Contact {
     private String name;
-    private String surname;
     private String phone;
+    private final LocalDateTime timeCreated;
+    private LocalDateTime timeUpdated;
 
-    public Contact(String name, String surname, String phone) {
+    protected Contact(String name, String phone) {
         this.name = name;
-        this.surname = surname;
-        if (isValidPhoneNumber(phone)) {
-            this.phone = phone;
-        } else {
-            System.out.println("Wrong number format!");
-            this.phone = "";
-        }
+        setPhone(phone);
+        timeCreated = LocalDateTime.now();
+        timeUpdated = LocalDateTime.now();
     }
 
     public String getName() {
@@ -26,16 +23,16 @@ public class Contact {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getPhone() {
-        return phone;
+        if (hasNumber()) {
+            return phone;
+        } else {
+            return getNoDataStr();
+        }
+    }
+
+    protected String getNoDataStr() {
+        return "[no data]";
     }
 
     public void setPhone(String phone) {
@@ -45,6 +42,18 @@ public class Contact {
             System.out.println("Wrong number format!");
             this.phone = "";
         }
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
+    }
+
+    public LocalDateTime getTimeUpdated() {
+        return timeUpdated;
+    }
+
+    public void setTimeUpdated(LocalDateTime timeUpdated) {
+        this.timeUpdated = timeUpdated;
     }
 
     private boolean isValidPhoneNumber(String phoneNumber) {
@@ -72,10 +81,5 @@ public class Contact {
 
     public boolean hasNumber() {
         return phone != null && !phone.isBlank();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s %s, %s", name, surname, hasNumber() ? phone : "[no number]");
     }
 }
