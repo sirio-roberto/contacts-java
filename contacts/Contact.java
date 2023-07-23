@@ -1,9 +1,10 @@
 package contacts;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public abstract class Contact {
+public abstract class Contact implements Serializable {
     protected final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm");
     private String name;
     private String phone;
