@@ -125,57 +125,8 @@ public class ContactsApp {
         return result;
     }
 
-    private void getContactDetail() {
-        if (contacts.isEmpty()) {
-            System.out.println("No records created");
-        } else {
-            listContacts();
-
-            System.out.print("Enter index to show info: ");
-            int userIndex = Integer.parseInt(scan.nextLine());
-
-            System.out.println(contacts.get(userIndex - 1));
-        }
-    }
-
     private void countContacts() {
         System.out.printf("The Phone Book has %d records.\n", contacts.size());
-    }
-
-    private void editContact() {
-        if (contacts.isEmpty()) {
-            System.out.println("No records to edit!");
-        } else {
-            listContacts();
-
-            System.out.print("Select a record: ");
-            int userIndex = Integer.parseInt(scan.nextLine());
-            Contact contactToEdit = contacts.get(userIndex - 1);
-
-            if (contactToEdit instanceof Person person) {
-                System.out.print("Select a field (name, surname, number): ");
-                String fieldName = scan.nextLine();
-
-                System.out.printf("Enter %s: ", fieldName);
-                String updatedValue = scan.nextLine();
-
-                factory = new PersonFactory();
-                factory.updateField(person, fieldName, updatedValue);
-
-            } else if (contactToEdit instanceof Organization org) {
-                System.out.print("Select a field (name, address, number): ");
-                String fieldName = scan.nextLine();
-
-                System.out.printf("Enter %s: ", fieldName);
-                String updatedValue = scan.nextLine();
-
-                factory = new OrganizationFactory();
-                factory.updateField(org, fieldName, updatedValue);
-            }
-
-            saveToFile();
-            System.out.println("The record updated!");
-        }
     }
 
     private void editContact(Contact contact) {
@@ -202,21 +153,6 @@ public class ContactsApp {
 
         saveToFile();
         System.out.println("Saved");
-    }
-
-    private void removeContact() {
-        if (contacts.isEmpty()) {
-            System.out.println("No records to remove!");
-        } else {
-            listContacts();
-            System.out.print("Select a record: ");
-            int userIndex = Integer.parseInt(scan.nextLine());
-
-            contacts.remove(userIndex - 1);
-            saveToFile();
-
-            System.out.println("The record removed!");
-        }
     }
 
     private void removeContact(Contact contact) {

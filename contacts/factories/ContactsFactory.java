@@ -1,7 +1,6 @@
 package contacts.factories;
 
 import contacts.Contact;
-import contacts.Organization;
 
 public interface ContactsFactory {
     Contact createContact();
