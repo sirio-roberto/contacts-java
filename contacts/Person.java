@@ -68,7 +68,7 @@ public class Person extends Contact{
                 getBirthDate(),
                 getGender(),
                 getPhone(),
-                getTimeCreated(),
-                getTimeUpdated());
+                getTimeCreated().format(dateFormatter),
+                getTimeUpdated().format(dateFormatter));
     }
 }

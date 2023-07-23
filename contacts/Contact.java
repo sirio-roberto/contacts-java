@@ -1,8 +1,10 @@
 package contacts;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Contact {
+    protected final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm");
     private String name;
     private String phone;
     private final LocalDateTime timeCreated;

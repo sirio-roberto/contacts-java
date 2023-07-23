@@ -32,6 +32,7 @@ public class ContactsApp {
                 case "count" -> countContacts();
                 case "info" -> getContactDetail();
             }
+            System.out.println();
         } while (true);
     }
 
@@ -95,7 +96,17 @@ public class ContactsApp {
     }
 
     public void createContact() {
-        ContactsFactory factory = new PersonFactory();
+        ContactsFactory factory;
+
+        System.out.print("Enter the type (person, organization): ");
+        String type = scan.nextLine();
+
+        if ("organization".equals(type)) {
+            // TODO: change it
+            factory = new PersonFactory();
+        } else {
+            factory = new PersonFactory();
+        }
 
         Contact contact = factory.createContact();
         contacts.add(contact);
