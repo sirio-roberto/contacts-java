@@ -1,12 +1,15 @@
 package contacts;
 
+import contacts.factories.ContactsFactory;
+import contacts.factories.PersonFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ContactsApp {
     private static final Scanner scan = new Scanner(System.in);
-    private final List<Person> contacts;
+    private final List<Contact> contacts;
 
     public ContactsApp() {
         contacts = new ArrayList<>();
@@ -56,7 +59,7 @@ public class ContactsApp {
             listContacts();
             System.out.print("Select a record: ");
             int userIndex = Integer.parseInt(scan.nextLine());
-            Person contactToEdit = contacts.get(userIndex - 1);
+            Person contactToEdit = (Person) contacts.get(userIndex - 1);
 
             System.out.print("Select a field (name, surname, number): ");
             String chosenField = scan.nextLine();
@@ -92,18 +95,9 @@ public class ContactsApp {
     }
 
     public void createContact() {
-        System.out.print("Enter the name: ");
-        String name = scan.nextLine();
-        System.out.print("Enter the surname: ");
-        String surname = scan.nextLine();
-        System.out.print("Enter the birth date: ");
-        String birthDateStr = scan.nextLine();
-        System.out.print("Enter the gender (M, F): ");
-        String genderStr = scan.nextLine();
-        System.out.print("Enter the number: ");
-        String phone = scan.nextLine();
+        ContactsFactory factory = new PersonFactory();
 
-        Person contact = new Person(name, phone, surname, birthDateStr, genderStr);
+        Contact contact = factory.createContact();
         contacts.add(contact);
 
         System.out.println("The record added.");

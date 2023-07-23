@@ -2,15 +2,13 @@ package contacts;
 
 import java.time.LocalDateTime;
 
-abstract class Contact {
+public abstract class Contact {
     private String name;
     private String phone;
     private final LocalDateTime timeCreated;
     private LocalDateTime timeUpdated;
 
-    protected Contact(String name, String phone) {
-        this.name = name;
-        setPhone(phone);
+    protected Contact() {
         timeCreated = LocalDateTime.now();
         timeUpdated = LocalDateTime.now();
     }
@@ -31,17 +29,8 @@ abstract class Contact {
         }
     }
 
-    protected String getNoDataStr() {
-        return "[no data]";
-    }
-
     public void setPhone(String phone) {
-        if (isValidPhoneNumber(phone)) {
-            this.phone = phone;
-        } else {
-            System.out.println("Wrong number format!");
-            this.phone = "";
-        }
+        this.phone = phone;
     }
 
     public LocalDateTime getTimeCreated() {
@@ -56,30 +45,11 @@ abstract class Contact {
         this.timeUpdated = timeUpdated;
     }
 
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.isBlank()) {
-            return false;
-        }
-        String[] groups = phoneNumber.split("[ -]");
-
-        if (groups.length > 1 && groups[0].matches("^\\+?\\(.+\\)$") && groups[1].matches("^\\(.+\\)$")) {
-            return false;
-        }
-        if (!groups[0].matches("(?i)^\\+?((\\([a-z0-9]+\\))|([a-z0-9]+))$")) {
-            return false;
-        }
-        if (groups.length > 1 && !groups[1].matches("(?i)^\\(?[a-z0-9]{2,}\\)?$")) {
-            return false;
-        }
-        for (int i = 2; i < groups.length; i++) {
-            if (!groups[i].matches("(?i)^?[a-z0-9]{2,}?$")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean hasNumber() {
         return phone != null && !phone.isBlank();
+    }
+
+    protected String getNoDataStr() {
+        return "[no data]";
     }
 }

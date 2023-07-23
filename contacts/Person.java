@@ -10,12 +10,7 @@ public class Person extends Contact{
     private Gender gender;
 
 
-    public Person(String name, String phone, String surname, String birthDateStr, String genderStr) {
-        super(name, phone);
-        this.surname = surname;
-        setBirthDate(birthDateStr);
-        setGender(genderStr);
-    }
+    public Person() {}
 
     @Override
     public String getName() {
@@ -38,23 +33,8 @@ public class Person extends Contact{
         }
     }
 
-    public void setBirthDate(String birthDateStr) {
-        if (isValidDate(birthDateStr)) {
-            this.birthDate = LocalDate.parse(birthDateStr);
-        } else {
-            System.out.println("Bad birth date!");
-            this.birthDate = null;
-        }
-    }
-
-    private boolean isValidDate(String birthDateStr) {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        try {
-            LocalDate.parse(birthDateStr, dateFormatter);
-            return true;
-        } catch (DateTimeParseException ex) {
-            return false;
-        }
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getGender() {
@@ -65,15 +45,8 @@ public class Person extends Contact{
         }
     }
 
-    public void setGender(String genderStr) {
-        switch (genderStr) {
-            case "M", "m" -> this.gender = Gender.M;
-            case "F", "f" -> this.gender = Gender.F;
-            default -> {
-                this.gender = null;
-                System.out.println("Bad gender!");
-            }
-        }
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public enum Gender {
