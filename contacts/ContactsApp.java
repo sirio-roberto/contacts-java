@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class ContactsApp {
     private static final Scanner scan = new Scanner(System.in);
     private final List<Contact> contacts;
+    private ContactsFactory factory;
 
     public ContactsApp() {
         contacts = new ArrayList<>();
@@ -62,17 +63,25 @@ public class ContactsApp {
 
             System.out.print("Select a record: ");
             int userIndex = Integer.parseInt(scan.nextLine());
-            Person contactToEdit = (Person) contacts.get(userIndex - 1);
+            Contact contactToEdit = contacts.get(userIndex - 1);
 
-            System.out.print("Select a field (name, surname, number): ");
-            String chosenField = scan.nextLine();
+            if (contactToEdit instanceof Person person) {
+                System.out.print("Select a field (name, surname, number): ");
+                String chosenField = scan.nextLine();
 
-            System.out.printf("Enter %s: ", chosenField);
-            String updatedValue = scan.nextLine();
-            switch (chosenField) {
-                case "name" -> contactToEdit.setName(updatedValue);
-                case "surname" -> contactToEdit.setSurname(updatedValue);
-                case "number" -> contactToEdit.setPhone(updatedValue);
+                System.out.printf("Enter %s: ", chosenField);
+                String updatedValue = scan.nextLine();
+                // TODO: implement logic on personFactory
+
+            } else if (contactToEdit instanceof Organization org) {
+                System.out.print("Select a field (address, number): ");
+                String chosenField = scan.nextLine();
+
+                System.out.printf("Enter %s: ", chosenField);
+                String updatedValue = scan.nextLine();
+
+                factory = new OrganizationFactory();
+                factory.updateField(org, chosenField, updatedValue);
             }
             System.out.println("The record updated!");
         }
@@ -98,8 +107,6 @@ public class ContactsApp {
     }
 
     public void createContact() {
-        ContactsFactory factory;
-
         System.out.print("Enter the type (person, organization): ");
         String type = scan.nextLine();
 

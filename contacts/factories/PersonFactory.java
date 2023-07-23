@@ -58,6 +58,11 @@ public class PersonFactory implements ContactsFactory {
         return person;
     }
 
+    @Override
+    public void updateField(Contact contact, String fieldName, String fieldValue) {
+
+    }
+
     private Person.Gender getGenderFromString(String genderStr) {
         switch (genderStr) {
             case "M", "m" -> {

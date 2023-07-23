@@ -1,9 +1,12 @@
 package contacts.factories;
 
 import contacts.Contact;
+import contacts.Organization;
 
 public interface ContactsFactory {
     Contact createContact();
+
+    void updateField(Contact contact, String fieldName, String fieldValue);
 
     default void setContactName(Contact contact, String name) {
         if (isValidName(name)) {
