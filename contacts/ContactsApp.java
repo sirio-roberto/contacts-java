@@ -67,21 +67,23 @@ public class ContactsApp {
 
             if (contactToEdit instanceof Person person) {
                 System.out.print("Select a field (name, surname, number): ");
-                String chosenField = scan.nextLine();
+                String fieldName = scan.nextLine();
 
-                System.out.printf("Enter %s: ", chosenField);
+                System.out.printf("Enter %s: ", fieldName);
                 String updatedValue = scan.nextLine();
-                // TODO: implement logic on personFactory
+
+                factory = new PersonFactory();
+                factory.updateField(person, fieldName, updatedValue);
 
             } else if (contactToEdit instanceof Organization org) {
                 System.out.print("Select a field (address, number): ");
-                String chosenField = scan.nextLine();
+                String fieldName = scan.nextLine();
 
-                System.out.printf("Enter %s: ", chosenField);
+                System.out.printf("Enter %s: ", fieldName);
                 String updatedValue = scan.nextLine();
 
                 factory = new OrganizationFactory();
-                factory.updateField(org, chosenField, updatedValue);
+                factory.updateField(org, fieldName, updatedValue);
             }
             System.out.println("The record updated!");
         }
