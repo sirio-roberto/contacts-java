@@ -5,6 +5,24 @@ import contacts.Contact;
 public interface ContactsFactory {
     Contact createContact();
 
+    default void setContactName(Contact contact, String name) {
+        if (isValidName(name)) {
+            contact.setName(name);
+        } else {
+            contact.setName("");
+            printFieldError("name");
+        }
+    }
+
+    default void setContactPhone(Contact contact, String phone) {
+        if (isValidPhoneNumber(phone)) {
+            contact.setPhone(phone);
+        } else {
+            System.out.println("Wrong number format!");
+            contact.setPhone("");
+        }
+    }
+
     default boolean isValidName(String name) {
         return name != null && !name.isBlank();
     }

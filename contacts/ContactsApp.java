@@ -1,6 +1,7 @@
 package contacts;
 
 import contacts.factories.ContactsFactory;
+import contacts.factories.OrganizationFactory;
 import contacts.factories.PersonFactory;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class ContactsApp {
             System.out.println("No records to edit!");
         } else {
             listContacts();
+
             System.out.print("Select a record: ");
             int userIndex = Integer.parseInt(scan.nextLine());
             Person contactToEdit = (Person) contacts.get(userIndex - 1);
@@ -102,8 +104,7 @@ public class ContactsApp {
         String type = scan.nextLine();
 
         if ("organization".equals(type)) {
-            // TODO: change it
-            factory = new PersonFactory();
+            factory = new OrganizationFactory();
         } else {
             factory = new PersonFactory();
         }

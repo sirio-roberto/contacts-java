@@ -14,12 +14,7 @@ public class OrganizationFactory implements ContactsFactory {
 
         System.out.print("Enter the organization name: ");
         String name = scan.nextLine();
-        if (isValidName(name)) {
-            org.setName(name);
-        } else {
-            org.setName("");
-            printFieldError("name");
-        }
+        setContactName(org, name);
 
         System.out.print("Enter the address: ");
         String address = scan.nextLine();
@@ -32,12 +27,7 @@ public class OrganizationFactory implements ContactsFactory {
 
         System.out.print("Enter the number: ");
         String phone = scan.nextLine();
-        if (isValidPhoneNumber(phone)) {
-            org.setPhone(phone);
-        } else {
-            System.out.println("Wrong number format!");
-            org.setPhone("");
-        }
+        setContactPhone(org, phone);
 
         return org;
     }
