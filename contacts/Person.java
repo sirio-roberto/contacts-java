@@ -1,8 +1,6 @@
 package contacts;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Person extends Contact{
     private String surname;
@@ -23,6 +21,14 @@ public class Person extends Contact{
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getSurname() {
+        if (surname != null && !surname.isBlank()) {
+            return surname;
+        } else {
+            return getNoDataStr();
+        }
     }
 
     private String getBirthDate() {
@@ -64,7 +70,7 @@ public class Person extends Contact{
                 Time created: %s
                 Time last edit: %s""",
                 super.getName(),
-                surname,
+                getSurname(),
                 getBirthDate(),
                 getGender(),
                 getPhone(),
