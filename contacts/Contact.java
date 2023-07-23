@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Contact implements Serializable {
-    protected final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm");
+    protected static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm");
     private String name;
     private String phone;
     private final LocalDateTime timeCreated;

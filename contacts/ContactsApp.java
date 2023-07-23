@@ -3,21 +3,37 @@ package contacts;
 import contacts.factories.ContactsFactory;
 import contacts.factories.OrganizationFactory;
 import contacts.factories.PersonFactory;
+import contacts.util.SerializationUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class ContactsApp {
     private static final Scanner scan = new Scanner(System.in);
-    private final List<Contact> contacts;
+    private String fileName;
+    private List<Contact> contacts;
     private ContactsFactory factory;
 
     public ContactsApp() {
         contacts = new ArrayList<>();
     }
 
+    public ContactsApp(String fileName) {
+        this.fileName = fileName;
+        try {
+            Contact[] contactsArray = (Contact[]) SerializationUtil.deserialize(fileName);
+            contacts = new ArrayList<>(Arrays.stream(contactsArray).toList());
+        } catch (IOException | ClassNotFoundException ex) {
+            contacts = new ArrayList<>();
+        }
+    }
+
     public void run() {
+        System.out.printf("open %s\n\n", fileName);
+
         String userAction;
 
         do {
@@ -85,6 +101,8 @@ public class ContactsApp {
                 factory = new OrganizationFactory();
                 factory.updateField(org, fieldName, updatedValue);
             }
+
+            saveToFile();
             System.out.println("The record updated!");
         }
     }
@@ -98,6 +116,8 @@ public class ContactsApp {
             int userIndex = Integer.parseInt(scan.nextLine());
 
             contacts.remove(userIndex - 1);
+            saveToFile();
+
             System.out.println("The record removed!");
         }
     }
@@ -120,7 +140,17 @@ public class ContactsApp {
 
         Contact contact = factory.createContact();
         contacts.add(contact);
+        saveToFile();
 
         System.out.println("The record added.");
+    }
+
+    private void saveToFile() {
+        Contact[] contactsArray = contacts.toArray(Contact[]::new);
+        try {
+            SerializationUtil.serialize(contactsArray, fileName);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
